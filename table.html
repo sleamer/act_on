@@ -14,10 +14,37 @@
             td {
                 border: solid 1px blue; 
                 padding:5px;
-            	}
+            }
+            tr:nth-child(even) {
+            	background: #CCC;
+            }
+			tr:nth-child(odd) {
+				background: #DED0BF;
+			}
+		/*SAL: Rotating the box*/
+			#helloBox {
+				border: solid 5px black;
+				background-color: lightgrey;
+				width: 200px;
+				height: 200px;
+				text-align: center;
+				transform: rotate(-90deg);
+				-webkit-transform: rotate(-90deg);
+				-moz-transform: rotate(-90deg);
+				-o-transform: rotate(-90deg);
+				-ms-transform: rotate(-90deg);
+				position: absolute;
+    			left: 50%;
+    			top: 200px;
+			}
+			.worldText {
+				padding: 50px;
+			}
+
         </style>
 	</head>
 	<body>
+		<div id="helloBox"><p class="worldText">Hello World</p></div>
 		<p>My Process:</p>
 		<ul>
 			<li>Create an Array of Random Letters/Digits</li>
