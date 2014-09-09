@@ -2,6 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+	<!-- SAL: include Korean characterset -->
+		<meta charset="euc-kr">
 		<link rel="shortcut icon" href="/favicon.ico">
 		<style>
 		/*SAL: table cell formatting per instructions*/
@@ -74,16 +76,23 @@
     	    $('table').append('<theader>').append('<tbody>');
 
 			for (u=0; u < 200; u++) {
-				if ( u % nRows === 0) {
-					myArray[u] = '</tr><tr><td>' + this.makeFifteen() + '</td>';
-				} else {					
-					myArray[u] = '<td>' + this.makeFifteen() + '</td>';
-				};
+			/*SAL: need to capture row 17 column 3 or u = 87(double check the number when table is sorted out)*/
+					if (u == 87) {
+						myArray[u] = '<td class="specialCell">' + 'ENGLISH, <span lang="ko">국립국어원</span>,' + '</td>';
+					} else if ( u % nRows === 0) {
+						myArray[u] = '</tr><tr><td>' + this.makeFifteen() + '</td>';
+					} else {					
+						myArray[u] = '<td>' + this.makeFifteen() + '</td>';
+					};
 			};
 			/*SAL: Ugh, how do I get the array to spill out correctly? The logic of generating Tables is so confusing*/
 			$('tbody').html(myArray);
-
-
+			
+			/*SAL: need to insert code into specialCell*/
+			var actOn = '\<my name is "acton"\>'
+			var specialCellText = $('.specialCell').text() + actOn;
+			$('.specialCell').text(specialCellText);
+			
 
     	    
     </script>
