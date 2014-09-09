@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+        <!-- SAL: Normally this styling would be a separate css/siteStyle.css file -->
+		<style>
+        /*SAL: A little styling to make the table cells visible*/
+            td {
+                border:1px inset #7F7F7F; 
+                padding:2px;
+                min-width:1.66em 
+            }
+        /*SAL: highlight in red every fourth row -- does not work if rows are less than 4.*/
+            tr:nth-child(4n+4) {  
+                color: red;
+            }
+        </style>
+	</head>
+	<body>
+
+        <h2>My Process</h2>
+            <ol>
+                <li>Parse the data from the JSON collection and place in jQuery array of objects.</li>
+                <li>Determine if there are any duplicate Last Name and sort Asc by First Name</li>
+                <li>Then sort array by Last Name Desc.</li>
+                <li>Capture the number of Rows (nRows) desired in a Click event.</li>
+                <li>Populate the table in a for loop based on length of the array. </li>
+                <li>Make a new table for each set of Rows</li>
+                <li>Highlight every Fourth Row.</li>
+                <li>Describe process with inline comments</li>
+            </ol>
+        <hr>
+
+        <!-- SAL: A UI form to capture number of rows -->
+		<form name="tableForm">
+            <p>Please enter then number of Rows you would like in your table:</p>
+		    <label>Rows: <input type="text" name="rows" id="rows" min="1" max="100"></label>
+		    <button type="button">Create Table</button>  
+		</form>
+        <hr>
+
+        <!-- SAL: Outer table for the dynamically created inner tables --> 
+	    <div id="tableSection">
+			<table>
+				<caption>Employee Information Table</caption>
+				<thead>
+				</thead>
+				<tbody>
+                    <tr>
+                    </tr>
+				</tbody>
+			</table>
+		</div>
+
+	<!-- jQuery include -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+    
+    <!-- SAL: Normally I would have a separate js/siteScript.js - including here to keep code together. -->
+    <script> 
+    /*=============JSON Manipulation====================*/
+    /*The JSON collection needs to be double quoted when fed to the employees variable*/       
+        var employees = '[{"firstName":"First1","lastName":"Last1","age":"Age1"},{"firstName":"First2","lastName":"Last2","age":"Age2"},{"firstName":"First3","lastName":"Last3","age":"Age3"},{"firstName":"First4","lastName":"Last4","age":"Age4"},{"firstName":"Linus","lastName":"Brown","age":"5"},{"firstName":"First6","lastName":"Last6","age":"Age6"},{"firstName":"Jason","lastName":"Mills","age":"44"},{"firstName":"First8","lastName":"Last8","age":"Age8"},{"firstName":"First9","lastName":"Last9","age":"Age9"},{"firstName":"First10","lastName":"Last10","age":"Age10"},{"firstName":"First11","lastName":"Last11","age":"Age11"},{"firstName":"Abby","lastName":"Mills","age":"35"},{"firstName":"First13","lastName":"Last13","age":"Age13"},{"firstName":"Snoopy","lastName":"Brown","age":"10"},{"firstName":"First15","lastName":"Last15","age":"Age15"},{"firstName":"First16","lastName":"Last16","age":"Age16"},{"firstName":"First17","lastName":"Last17","age":"Age17"},{"firstName":"First18","lastName":"Last18","age":"Age18"},{"firstName":"First19","lastName":"Last19","age":"Age19"}]';
+    /*SAL: Left in Consol.logs to show my logic*/
+        console.log('Here is the JSON Collection: ');
+        console.log(employees);
+
+        var employees_parsed = $.parseJSON(employees);
+        console.log('This is the parsed Employee collection: ');
+        console.log(employees_parsed);
+
+    /*SAL: This sorts by the last name:*/
+        var byLastNameDesc = employees_parsed.slice(0);
+        byLastNameDesc.sort(function(a,b) {
+            if (a.lastName == b.lastName){
+                var x = a.firstName.toLowerCase();
+                var y = b.firstName.toLowerCase();
+                return x < y ? -1 : x > y ? 1 : 0;
+            } else { 
+                var x = a.lastName.toLowerCase();
+                var y = b.lastName.toLowerCase();
+                return x > y ? -1 : x < y ? 1 : 0;
+            };
+        });
+    /*SAL: Left in Consol.logs to show my logic*/
+        console.log('This is the sorted Employee collection: ');
+        console.log(byLastNameDesc);
+/*=============JSON manipulation Finished====================*/	
+/*=============Nested Tables creation ====================*/
+    /*SAL: capture the number of rows input by user*/
+    /*SAL: In future should determine if there is already a table in existence then clear it.*/		
+		$('button').click(function() {
+			var nRows = $('#rows').val();
+    /*SAL: capturing the number of columns - not used */
+            var nCols = Math.ceil((byLastNameDesc.length)/nRows);
+    /*SAL: keeping value of rows in specified range*/
+            if (nRows < 1 || nRows > 100) {
+                alert("Please Enter a number of Rows between 1 and 100");
+            } else {
+                var $trMain = $('tbody tr:first'),
+                    $childTbody;
+            	for (var u = 0; u < byLastNameDesc.length; u++) {
+            		var employee = byLastNameDesc[u];
+    /*SAL: create a new table insertion for each grouping of rows*/
+            		if (u % nRows === 0) {
+                        var $newTd = $('<td />');
+                        var $newTable = $('<table><tbody></tbody></table>');
+                        $newTd.append($newTable);
+                        $trMain.append($newTd);
+                        $childTbody = $newTable.find('tbody');
+                    }
+                    var $tr = $('<tr />');
+                    $tr.append($('<td>').text(employee.lastName + ', ' + employee.firstName));
+    /*SAL: if you need firstName separated from lastName*/
+                    /*$tr.append($('<td>').text(employee.firstName));*/ 
+                    $childTbody.append($tr);
+				};
+			};
+		});
+/*=============Nested Tables finished ====================*/ 
+	</script>
+	</body>
+</html>

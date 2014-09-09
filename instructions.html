@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" href="/favicon.ico">
+		<link rel="stylesheet" href="cs/acton.css" />
+		<script src="js/acton.js"></script>
+	</head>
+	<body>
+Client side HTML / JS / CSS questions:
+<br>
+ 
+
+
+Q3: Given an input JSON collection...
+<br>
+ 
+<!-- var dataEmployees = JSON object below -->
+<!-- SAL :  use jquery to break it apart: jQuery.parseJSON() -->
+
+<!-- SAL: Have to assume that the JSON statement is properly created. --> 
+employees: [<br>
+
+    { firstName: ..., lastName: ..., age: ... }<br>
+
+]<br>
+
+<!-- HTML table  -->
+
+1. First need to pull the data out of the JSON collection (into a jquery object?)
+2. Need to combine first and last name, ditch the rest of the data. then populate table.
+2. Need to sort alphabetically from (z to a), unless share a name (a to z).  [Johnson, Amy] 
+2. Next determine how many rows (nRows) are needed from an input.
+3. Divide the total numbers of employees by how many rows. nRow/employee.length.
+4. 
+
+
+
+... dynamically populate an HTML table with employee names columnwise.<br>
+
+i.e. top to bottom then left to right.<br>
+
+Highlight every 4th name in red text.<br>  <!-- change class of 4th rows in css?
+ -->
+ 
+
+The number of rows in the table are fixed as an input variable 1 <= nRows <= 100.<br>
+
+The number of columns are dynamically calculated to accommodate all employees to be displayed.<br>
+
+ 
+
+For example, if nRows = 30 and there are 100 employees in the collection,<br>
+
+display 1 to 30 in column 1, <br>
+
+31 to 60 in column 2, <br>
+
+61 to 90 in column 3 and <br>
+
+91 onwards in column 4.<br>
+
+In certain cases, not all cells will be populated i.e. if (employee count) < (rows x columns)<br>
+
+ 
+
+Make sure the names are sorted alphabetically on lastName (descending z to a).<br>
+
+If two employees have the same lastName, sort on firstName (ascending--normal).<br>
+
+ 
+
+Note:<br>
+
+A] This must be built using HTML, JS, CSS only.<br>
+
+You cannot use any server side constructs.<br>
+
+B] You may optionally use jQuery (http://jquery.com/) or Handlebars (http://handlebarsjs.com/)<br>
+
+No other JS or CSS libraries may be used.<br>
+
+ 
+
+Q4: Create a table (5 columns, 40 rows, 1 x row header, 1 x column header) programmatically using jQuery.<br>
+
+Populate this table with auto generated data for each cell i.e. 15 alphanumeric characters (excluding vowels and numbers 0 and 1).<br>
+
+Cell (row=17; column=3) must contain special text as follows:<br>
+
+a] One English word, <br>
+
+b] One Korean word (from http://www.unicode.org/standard/translations/korean.html) and <br>
+
+c] The text (including the angled brackets and double quotes): <my name is "acton"><br>
+
+The table border should be single / solid / red.<br>
+
+Each cell's border should be single / solid / blue.<br>
+
+Padding within each cell should be 5 pixels.<br>
+
+Center this table horizontally on the screen - screen resizes should cause the table to auto reposition itself.<br>
+
+Highlight odd rows and even rows in a different color using pure CSS.<br>
+
+Add an absolute positioned DIV partially over this table containing text: Hello World <br>
+
+Rendered this text vertically i.e. rotated 90 deg to the left<br>
+
+Submit this solution as a single HTML file (with embedded CSS and JS) - no additional files.<br>
+
+ 
+
+Instructions for submission of results:<br>
+
+1 = Provide a ZIP archive of your source files (recursive directories and files if applicable).<br>
+
+2 = Provide a readme.txt file describing your solution.<br>
+
+3 = The answers must be submitted within 48 hours of receipt of these questions.<br>
+
+		<footer>Footer</footer>
+	</body>
+</html>

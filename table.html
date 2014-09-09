@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<style>
+		/*SAL: table cell formatting per instructions*/
+			table {
+				border: solid 1px red;
+				margin: auto; 
+				}
+
+        /*SAL: table cell formatting per instructions*/
+            td {
+                border: solid 1px blue; 
+                padding:5px;
+            	}
+        </style>
+	</head>
+	<body>
+		<p>My Process:</p>
+		<ul>
+			<li>Create an Array of Random Letters/Digits</li>
+			<li>Populate table with output</li>
+			<li>Change a specific cell</li>
+		</ul>
+
+
+	<!-- jQuery include -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
+    <script>
+		
+			var makeFifteen = function ()
+			{
+			    var text = "";
+			    var possible = "BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz23456789";
+
+			    for( var i=0; i < 15; i++ )
+			      text += possible.charAt(Math.floor(Math.random() * possible.length));
+			  return text;
+			};
+			var nRows = 40;
+			var tOpenTr = '<tr>';
+			var tCloseTr = '</tr>';
+			var myArray = [];
+			$('body').append('<table>');
+    	    $('table').append('<theader>').append('<tbody>');
+
+			for (u=0; u < 200; u++) {
+				if ( u % nRows === 0) {
+					myArray[u] = '</tr><tr><td>' + this.makeFifteen() + '</td>';
+				} else {					
+					myArray[u] = '<td>' + this.makeFifteen() + '</td>';
+				};
+			};
+			/*SAL: Ugh, how do I get the array to spill out correctly? The logic of generating Tables is so confusing*/
+			$('tbody').html(myArray);
+
+
+
+    	    
+    </script>
+	</body>
+</html>
+
+<!-- sources
+http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript -->
