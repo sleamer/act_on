@@ -4,15 +4,15 @@
 		<meta charset="utf-8">
 	<!-- SAL: include Korean characterset -->
 		<meta charset="euc-kr">
-		<link rel="shortcut icon" href="/favicon.ico">
+		<!-- SAL: Normally this styling would be a separate css/siteStyle.css file -->
 		<style>
-		/*SAL: table cell formatting per instructions*/
+		/*SAL: table formatting*/
 			table {
 				border: solid 1px red;
 				margin: auto; 
 				}
 
-        /*SAL: table cell formatting per instructions*/
+        /*SAL: table cell formatting*/
             td {
                 border: solid 1px blue; 
                 padding:5px;
@@ -23,7 +23,7 @@
 			tr:nth-child(odd) {
 				background: #DED0BF;
 			}
-		/*SAL: Rotating the box*/
+		/*SAL: Rotating the hello world box*/
 			#helloBox {
 				border: solid 5px black;
 				background-color: lightgrey;
@@ -49,17 +49,23 @@
 		<div id="helloBox"><p class="worldText">Hello World</p></div>
 		<p>My Process:</p>
 		<ul>
-			<li>Create an Array of Random Letters/Digits</li>
-			<li>Populate table with output</li>
-			<li>Change a specific cell</li>
+			<li>Generate a table using Jquery</li>
+			<li>Populate table with random 15 character string - exluding vowels, 0, and 1</li>
+			<li>Identify a specific cell</li>
+			<li>Change content of that cell to contain English, Korean, and code </li>
+			<li>Apply CSS to table</li>
+			<li>Create, position, and rotate a Div to contain 'Hello World'</li>
+			<li>Comment Code</li>
 		</ul>
-
+	<div id="results"></div>
 
 	<!-- jQuery include -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript"></script>
-    <script>
-		
-			var makeFifteen = function ()
+	<!-- SAL: Normally I would have a separate js/siteScript.js - including here to keep code together. -->
+	<script>
+	/*==============Random String function===================*/
+	/*SAL: Create a function to generate a random 15 character string*/
+		var makeFifteen = function ()
 			{
 			    var text = "";
 			    var possible = "BCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz23456789";
@@ -68,36 +74,35 @@
 			      text += possible.charAt(Math.floor(Math.random() * possible.length));
 			  return text;
 			};
-			var nRows = 40;
-			var tOpenTr = '<tr>';
-			var tCloseTr = '</tr>';
-			var myArray = [];
-			$('body').append('<table>');
-    	    $('table').append('<theader>').append('<tbody>');
+	/*==============/end Random String function===================*/
+	/*==============Table Generation===================*/
+		$('body').append('<table>');
+		$('table').append('<theader>').append('<tbody>');
+		/*SAL: Generate emply table rows*/
 
-			for (u=0; u < 200; u++) {
-			/*SAL: need to capture row 17 column 3 or u = 87(double check the number when table is sorted out)*/
-					if (u == 87) {
-						myArray[u] = '<td class="specialCell">' + 'ENGLISH, <span lang="ko">국립국어원</span>,' + '</td>';
-					} else if ( u % nRows === 0) {
-						myArray[u] = '</tr><tr><td>' + this.makeFifteen() + '</td>';
-					} else {					
-						myArray[u] = '<td>' + this.makeFifteen() + '</td>';
-					};
+		for (j=1; j<=40; j++) { 
+			$('tbody').append('<tr>');
+		};
+		/*SAL: Generate emply table cells*/
+		$('tr').each(function() {
+			for (i=1; i<=5; i++) {
+				$(this).append('<td>')
 			};
-			/*SAL: Ugh, how do I get the array to spill out correctly? The logic of generating Tables is so confusing*/
-			$('tbody').html(myArray);
-			
-			/*SAL: need to insert code into specialCell*/
-			var actOn = '\<my name is "acton"\>'
-			var specialCellText = $('.specialCell').text() + actOn;
-			$('.specialCell').text(specialCellText);
-			
+		});
 
-    	    
-    </script>
+		/*SAL: populate all cells with random string*/
+		$('td').each(function (){
+			$( this ).text(makeFifteen());
+		});
+
+		/*SAL: Create a unique cell*/
+		$('table tbody tr:nth-child(17)').find('td:nth-child(3)').addClass('specialOne');
+
+		/*SAL: insert text into specialOne cell*/
+		var actOn = '\<my name is "acton"\>';
+		var koreanText = '<span lang="ko">국립국어원</span>';
+		$('.specialOne').text('English, ' + actOn).append(koreanText);
+
+    </script>				
 	</body>
 </html>
-
-<!-- sources
-http://stackoverflow.com/questions/1349404/generate-a-string-of-5-random-characters-in-javascript -->
